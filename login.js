@@ -12,25 +12,28 @@ const login = new Login({
 
 const checkLogin = (user, pw) => {
   return new Promise(function (resolve, reject) {
-    //make sure username is valid
     login.query(
       "SELECT username FROM users WHERE username= '" + user + "'",
       (error, results) => {
         if (error) {
           reject(error);
+        } else if (results.rows[0] === undefined) {
+          resolve(JSON.stringify({ loggedIn: undefined }));
         }
-        //if username valid, then check password
-        login.query(
-          "SELECT password FROM users where username='" + user + "'",
-          (error, results) => {
-            if (error) {
-              reject(error);
-            } else if (pw === results.rows[0].password) {
-              resolve(true);
+        //make sure username is correct
+        else {
+          login.query(
+            "SELECT password FROM users where username='" + user + "'",
+            (error, results) => {
+              if (error) {
+                reject(error);
+              } else if (pw === results.rows[0].password) {
+                resolve(JSON.stringify({ loggedIn: true }));
+              }
+              resolve(JSON.stringify({ loggedIn: false }));
             }
-            resolve(false);
-          }
-        );
+          );
+        }
       }
     );
   });

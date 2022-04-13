@@ -21,12 +21,11 @@ app.get("/login", (req, res) => {
   login
     .checkLogin(req.query.username, req.query.pw)
     .then((response) => {
-      res.status(200).send(console.log(response));
+      console.log(response);
+      res.status(200).send(response);
     })
     .catch((error) => {
       console.log(error);
-      res.status(500).send(console.log("username does not exist"));
-      res.status(500).send("username does not exist");
     });
 });
 
