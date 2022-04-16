@@ -3,25 +3,14 @@ const app = express();
 const port = 3001;
 const cors = require("cors");
 const login = require("./login");
+const signup = require("./signup");
 
 app.use(cors());
-app.get("/", (req, res) => {
-  login
-    .checkLogin()
-    .then((response) => {
-      res.status(200).send(response);
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(500).send(error);
-    });
-});
 
 app.get("/login", (req, res) => {
   login
     .checkLogin(req.query.username, req.query.pw)
     .then((response) => {
-      console.log(response);
       res.status(200).send(response);
     })
     .catch((error) => {
@@ -29,9 +18,9 @@ app.get("/login", (req, res) => {
     });
 });
 
-app.post("/login", (req, res) => {
-  login
-    .createLogin(req.body)
+app.post("/signup", (req, res) => {
+  signup
+    .newUser(req.query.username, req.query.pw)
     .then((response) => {
       res.status(200).send(response);
     })
