@@ -15,7 +15,7 @@ const checkLogin = (user, pw) => {
         if (error) {
           reject(error);
         } else if (results.rows[0] === undefined) {
-          resolve(JSON.stringify({ loggedIn: undefined }));
+          loggedIn = undefined;
         }
         //make sure username is correct
         else {
@@ -26,8 +26,9 @@ const checkLogin = (user, pw) => {
                 reject(error);
               } else if (pw === results.rows[0].password) {
                 resolve(JSON.stringify({ loggedIn: true }));
+              } else {
+                resolve(JSON.stringify({ loggedIn: false }));
               }
-              resolve(JSON.stringify({ loggedIn: false }));
             }
           );
         }
