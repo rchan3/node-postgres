@@ -24,7 +24,7 @@ const newUser = (user, pw) => {
           signup.query(
             "INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *",
             [user, pw],
-            (error, results) => {
+            (error) => {
               if (error) {
                 reject(error);
               }
