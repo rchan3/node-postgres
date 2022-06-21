@@ -11,6 +11,14 @@ const echo = (client, message) => {
       disableUrlPreview: false,
     },
   };
+
+  messagebird.conversations.send(params, function (err, response) {
+    if (err) {
+      return console.log(err);
+    }
+    console.log(response);
+  });
+
   return new Promise(function (resolve, reject) {
     messagebird.conversations.send(params, function (err, response) {
       if (err) {
