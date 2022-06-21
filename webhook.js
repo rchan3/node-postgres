@@ -14,10 +14,10 @@ const echo = (client, message) => {
   return new Promise(function (resolve, reject) {
     messagebird.conversations.send(params, function (err, response) {
       if (err) {
-        console.log("error");
+        console.log(err);
         reject(err);
       }
-      console.log("sending a response...");
+      console.log(response);
       resolve(response);
     });
   });
